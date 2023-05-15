@@ -4,21 +4,21 @@ from exception import APIException, ValueConverter
 
 bot = telebot.TeleBot(TOKEN)
 
-@bot.message_handler(commands=['start', 'help'])
+@bot.message_handler(commands=['start', 'help']) #создаем описание для команд старт и помощь
 def help(message: telebot.types.Message):
     text = 'Чтобы начать работу, введите команду боту в следующем формате:\n<Имя валюты, цену которой вы хотите узнать> \
 <Имя валюты, в которой хотите узнать цену> \
 <количество переводимой валюты>\nПосмотреть спискок всех доступных валют: /values'
     bot.reply_to(message, text)
 
-@bot.message_handler(commands=['values'])
+@bot.message_handler(commands=['values']) #создаем описание для команды валюты
 def values(message: telebot.types.Message):
     text = 'Доступные валюты:'
     for key in keys.keys():
         text = '\n'.join((text, key, ))
     bot.reply_to(message, text)
 
-@bot.message_handler(content_types=['text', ])
+@bot.message_handler(content_types=['text', ]) #выводим сообщение о результатах конвертации
 def convert(message: telebot.types.Message):
     try:
         values = message.text.split(' ')
